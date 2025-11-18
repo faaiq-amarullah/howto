@@ -1,0 +1,70 @@
+#cloud-config
+bootcmd:
+- mkdir -p /etc/rancher/rke2
+- mkdir -p /var/lib/rancher/rke2/server/tls
+- mkdir -p /var/lib/rancher/rke2/server/logs
+- mkdir -p /var/lib/rancher/rke2/agent/etc/containerd
+
+growpart:
+ devices: [/]
+ ignore_growroot_disabled: false
+ mode: auto
+resize_rootfs: true
+
+write_files:
+  - path: /etc/sysctl.d/99-kubernetes-cri.conf
+    content: |
+      net.ipv4.ip_forward = 1
+      net.ipv6.conf.all.forwarding = 1
+      net.bridge.bridge-nf-call-iptables = 1
+      net.bridge.bridge-nf-call-ip6tables = 1
+      fs.inotify.max_user_watches = 524288
+      fs.inotify.max_user_instances = 512
+  - path: /var/lib/rancher/rke2/server/audit.yaml
+    content: |
+      apiVersion: audit.k8s.io/v1
+      kind: Policy
+      rules:
+        - level: Metadata
+
+timezone: Asia/Jakarta
+allow_public_ssh_keys: true
+disable_root: true
+users:
+- name: user
+  gecos: "Rancher User"
+  groups: users, sudo, wheel
+  shell: /bin/bash
+  sudo: "ALL=(ALL) NOPASSWD:ALL"
+  ssh_pwauth: true
+  lock_passwd: false
+  hashed_passwd: $6$rounds=500000$xWVfAJc0Cp4UqXHa$.3T8ICzYChd0BdGB31xf3tEuvwH2W8wvIBk6hpe/4xPvJoN6PEPIqXo6G7yAyBeHiu4e38bv6.dsA8852nqkB.
+
+package_reboot_if_required: true
+package_update: true
+package_upgrade: true
+
+runcmd:
+  - sysctl -p
+  - sed -i '/\sswap\s/s/^/#/' /etc/fstab
+  - swapoff -a
+  - ufw enable
+  - ufw allow 22/tcp comment 'SSH Server'
+  - ufw allow 80/tcp comment 'HTTP'
+  - ufw allow 443/tcp comment 'HTTPS'
+  - ufw allow 2376/tcp comment 'Docker Daemon TLS'
+  - ufw allow 2379:2381/tcp comment 'ETCD ports'
+  - ufw allow 4240/tcp comment 'Cilium Health Checks'
+  - ufw allow 4244:4245/tcp comment 'Cilium Hubble ports'
+  - ufw allow 6443/tcp comment 'kube-apiserver'
+  - ufw allow 8472/udp comment 'Flannel VXLAN'
+  - ufw allow 9099/tcp comment 'Flannel livenessProbe'
+  - ufw allow 9345/tcp comment 'RKE2 Ports'
+  - ufw allow 10250/tcp comment 'Kubelet metrics'
+  - ufw allow 10254/tcp comment 'Ingress controller livenessProbe'
+  - ufw allow 30000:32767/tcp comment 'NodePort range tcp'
+  - ufw allow 30000:32767/udp comment 'NodePort range udp'
+  - ufw allow from <NODE-NETWORK> comment 'Node Network'
+  - ufw allow from <CLUSTER-CIDR> comment 'Cluster CIDR'
+  - ufw allow from <SERVICE-CIDR> comment 'Service CIDR'
+  - ufw reload
