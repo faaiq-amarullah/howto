@@ -30,13 +30,14 @@ write_files:
 timezone: Asia/Jakarta
 allow_public_ssh_keys: true
 disable_root: true
+ssh_pwauth: true
+
 users:
 - name: user
   gecos: "Rancher User"
   groups: users, sudo, wheel
   shell: /bin/bash
   sudo: "ALL=(ALL) NOPASSWD:ALL"
-  ssh_pwauth: true
   lock_passwd: false
   hashed_passwd: $6$rounds=500000$xWVfAJc0Cp4UqXHa$.3T8ICzYChd0BdGB31xf3tEuvwH2W8wvIBk6hpe/4xPvJoN6PEPIqXo6G7yAyBeHiu4e38bv6.dsA8852nqkB.
 
