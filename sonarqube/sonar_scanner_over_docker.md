@@ -35,6 +35,7 @@ And then you just type this command to run sonar scanner on your terminal.
 ```
 sonarScanner --version
 sonarScanner --help
+sonarScanner -D sonar.projectKey=test
 ```
 
 > [!WARNING]
