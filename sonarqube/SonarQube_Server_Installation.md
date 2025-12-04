@@ -5,10 +5,7 @@
 ### System Requirements
 
 - **OS**: Ubuntu 20.04+/CentOS 8+ or any modern Linux distribution
-- **Dependencies**: Java Version 21, wget, unzip, vim or another text editor
-- **Docker Dependencies**: Docker Version 20.10+, Docker Compose Version 2.0+
-- **Kubernetes Dependencies**: Helm Version 3
-- **Database**: Embedded H2 database is used by default
+- **Dependencies**: Java Version 21, wget, unzip, vim or another text editor, Docker Version 20.10+, Docker Compose Version 2.0+, Helm Version 3
 - **Resources**: Minimum 4GB RAM, 2 vCPUs, 10GB disk space
 - **Recommended**: 8GB RAM, 4 vCPUs for production
 
