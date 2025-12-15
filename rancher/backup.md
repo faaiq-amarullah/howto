@@ -22,8 +22,8 @@ The backup storage location is an operator-level setting, so it needs to be conf
 
 Backups are created as .tar.gz files. These files can be pushed to S3 or Minio, or they can be stored in a persistent volume.
 
-1. In the upper left corner, click ☰ > C`Cluster Management`.
-2. On the Clusters page, go to the local cluster and click `Explore`. The local cluster runs the Rancher server.
+1. In the upper left corner, click ☰ > `Cluster Management`.
+2. On the Clusters page, go to the `local` cluster and click `Explore`. The `local` cluster runs the Rancher server.
 3. Click `Apps` > `Charts`.
 4. Click `Rancher Backups`.
 5. Click `Install`.
@@ -34,13 +34,13 @@ Backups are created as .tar.gz files. These files can be pushed to S3 or Minio, 
 
 To perform a backup, a custom resource of type Backup must be created.
 
-1. In the upper left corner, click ☰ > Cluster Management.
-2. On the Clusters page, go to the local cluster and click Explore.
-3. In the left navigation bar, click Rancher Backups > Backups.
-4. Click Create.
+1. In the upper left corner, click ☰ > `Cluster Management`.
+2. On the `Clusters` page, go to the `local` cluster and click Explore.
+3. In the left navigation bar, click `Rancher Backups` > `Backups`.
+4. Click `Create`.
 5. Create the Backup with the form, or with the YAML editor.
-6. For configuring the Backup details using the form, click Create and refer to the configuration reference and to the examples.
-7. For using the YAML editor, we can click Create > Create from YAML. Enter the Backup YAML. This example Backup custom resource would create encrypted recurring backups in S3. The app uses the credentialSecretNamespace value to determine where to look for the S3 backup secret:
+6. For configuring the Backup details using the form, click `Create` and refer to the configuration reference and to the examples.
+7. For using the YAML editor, we can click `Create` > `Create from YAML`. Enter the Backup YAML. This example Backup custom resource would create encrypted recurring backups in S3. The app uses the credentialSecretNamespace value to determine where to look for the S3 backup secret:
 
 ```yaml
 apiVersion: resources.cattle.io/v1
@@ -63,4 +63,4 @@ spec:
 8. Click Create.
 
 ## Reference
-Visit https://ranchermanager.docs.rancher.com/how-to-guides/new-user-guides/backup-restore-and-disaster-recovery/back-up-rancher
+Visit [Rancher Documentation](https://ranchermanager.docs.rancher.com/how-to-guides/new-user-guides/backup-restore-and-disaster-recovery/back-up-rancher)

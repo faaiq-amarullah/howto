@@ -48,7 +48,7 @@ cloudConfigPath: /config/cloud-config
 cloudProvider: rancher
 
 extraArgs:
-  scale-down-utilization-threshold: 0.8
+  scale-down-utilization-threshold: 0.5
   scale-down-unneeded-time: 1m
 
 extraVolumeSecrets:
@@ -70,7 +70,7 @@ helm install autoscaler autoscaler/cluster-autoscaler \
     --set 'autoDiscovery.clusterName'=cluster-autoscale-demo \
     --set 'cloudConfigPath'=/config/cloud-config \
     --set 'cloudProvider'=rancher \
-    --set 'extraArgs.scale-down-utilization-threshold'=0.8 \
+    --set 'extraArgs.scale-down-utilization-threshold'=0.5 \
     --set 'extraArgs.scale-down-unneeded-time'=1m \
     --set 'extraVolumeSecrets.cluster-autoscaler-cloud-config.name'=cluster-autoscaler-cloud-config \
     --set 'extraVolumeSecrets.cluster-autoscaler-cloud-config.mountPath'=/config
@@ -157,4 +157,4 @@ spec:
 
 ## Reference
 
-Visit https://github.com/dsohk/rancher-rke2-autoscaler-tutorial
+Visit [rancher-rke2-autoscaler-tutorial](https://github.com/dsohk/rancher-rke2-autoscaler-tutorial)

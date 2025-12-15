@@ -3,7 +3,7 @@
 ## Step 1: Create Bucket
 
 ```bash 
-mc mb mycluster/rancher-management/etcd-snapshot/management
+mc mb mycluster/rancher-management/etcd-snapshot/{management,development,production}
 ```
 
 ## Step 2: Create Access Policies
