@@ -159,3 +159,4 @@ For SonarQube Cloud:
 1. Open file that will be the target for analysis
 2. Open Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
 3. Run: `SonarQube: Analyze Current File with SonarQube`
+4. Or you can just open Problems Panel (`Ctrl+Shift+M` / `Cmd+Shift+M`)

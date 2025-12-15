@@ -19,9 +19,7 @@ Edit `pom.xml` file to add sonar properties configuration.
 When you run this command below, you will enter inside the container environment. 
 
 ```bash
-docker run \
-  --network sonar \
-  --rm \
+docker run -it --rm \
   -v "${PWD}:/usr/src/maven" \
   -w /usr/src/mymaven maven:3.9.11-eclipse-temurin-17 bash
 ```
@@ -37,9 +35,7 @@ You can simplify this command with bash alias. Add this line to `~/.bash_aliases
 
 ```bash
 sonarMvn() {
-  docker run \
-    --network sonar \
-    --rm \
+  docker run --rm \
     -v "${PWD}:/usr/src/mymaven" \
     -w /usr/src/mymaven maven:3.9.11-eclipse-temurin-17 mvn "$@"
 }

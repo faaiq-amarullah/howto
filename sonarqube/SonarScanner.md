@@ -5,9 +5,7 @@
 When you run this command below, you will enter inside the container environment. 
 
 ```bash
-docker run -it \
-  --network sonar \
-  --rm \
+docker run -it --rm \
   -v "${PWD}:/usr/src" \
   sonarsource/sonar-scanner-cli bash
 ```
@@ -22,9 +20,7 @@ You can simplify this command with bash alias. Add this line to `~/.bash_aliases
 
 ```bash
 sonarScanner() {
-  docker run \
-    --network sonar \
-    --rm \
+  docker run --rm \
     -e SONAR_HOST_URL="http://your-server-ip-or-domain:9000" \
     -e SONAR_TOKEN="your-token" \
     -v "${PWD}:/usr/src" \
