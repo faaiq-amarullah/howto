@@ -20,7 +20,7 @@ metadata:
 type: Opaque
 stringData:
   cloud-config: |-
-    url: https://rancher-management.bpk.go.id
+    url: https://rancher.k3s.my.test
     token: token-r.........rngnqrnt84fm
     clusterName: cluster-autoscale-demo
     clusterNamespace: fleet-default
