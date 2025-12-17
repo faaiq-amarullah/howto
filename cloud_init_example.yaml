@@ -61,6 +61,7 @@ runcmd:
   - ufw allow 8472/udp comment 'Flannel VXLAN'
   - ufw allow 9099/tcp comment 'Flannel livenessProbe'
   - ufw allow 9345/tcp comment 'RKE2 Ports'
+  - ufw allow 9796/tcp comment 'Monitoring metrics'
   - ufw allow 10250/tcp comment 'Kubelet metrics'
   - ufw allow 10254/tcp comment 'Ingress controller livenessProbe'
   - ufw allow 30000:32767/tcp comment 'NodePort range tcp'

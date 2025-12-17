@@ -1,37 +1,21 @@
-## Install govc client
+## Edit rke2 config.yaml file on control-plane node
 
 ```bash
-export GOVC_INSECURE=1
-export GOVC_URL='https://administrator@vsphere.local:<PASSWORD>@vc802.gs.labs'
-curl -L -o - "https://github.com/vmware/govmomi/releases/latest/download/govc_$(uname -s)_$(uname -m).tar.gz" | tar -C /usr/local/bin -xvzf - govc
+vim /etc/rancher/rke2/config.yaml
+
+# Add this line
+cloud-provider-name: rancher-vsphere
 ```
 
-## Get VM Location
+## Edit kubelet args
+
+1. Click **☰** > **Cluster Management**.
+2. Go to the cluster where the vSphere CPI plugin will be installed and click **Edit Config**.
+3. Click **Advanced** > **Additional Kubelet Args**.
+4. Click **Add Argument** and add this line:
 
 ```bash
-govc ls /datacenter-name/vm
-```
-
-## Enable UUID
-
-```bash
-govc vm.change -vm /Sydney/vm/control1 -e disk.enableUUID=TRUE
-govc vm.change -vm /Sydney/vm/worker1 -e disk.enableUUID=TRUE
-```
-
-## Extract VM UUID
-
-```bash
-govc vm.info -json -dc=Sydney -vm.ipath="/Sydney/vm/control1" -e=true | jq -r ' .virtualMachines[] | .config.uuid '
-```
-
-## Edit /etc/rancher/k3s/config.yaml file
-
-```yaml
-kubelet-arg:
-  # Add this line
-  - "cloud-provider=external"
-  - "provider-id=vsphere://<UUID>"
+cloud-provider=external
 ```
 
 ## Install CPI Plugin
