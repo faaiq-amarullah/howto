@@ -99,3 +99,62 @@ datastoreurl can get using govc.
 ```yaml
 govc datastore.info -json <datastore_name> | grep url
 ```
+
+## Install vsphere csi & vsphere cpi on in tree vm
+
+```bash
+mkdir -p /etc/rancher/rke2/
+cat <<EOF> /etc/rancher/rke2/config.yaml
+cloud-provider-name: rancher-vsphere
+cni:
+- calico
+protect-kernel-defaults: false
+selinux: true
+token: random-it
+
+EOF
+
+
+# just for developer use
+curl -sfL https://get.rke2.io | INSTALL_RKE2_TYPE="server" sh -
+
+
+mkdir -p /var/lib/rancher/rke2/server/manifests
+
+cat << EOF > /var/lib/rancher/rke2/server/manifests/config-rancher-vsphere-cpi-csi.yaml
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: rancher-vsphere-cpi
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    vCenter:
+      host: "vcenter"
+      port: 443
+      insecureFlag: true
+      datacenters: "vmware-dc"
+      username: "login@vsphere.local"
+      password: "passwd"
+      credentialsSecret:
+        name: "vsphere-cpi-creds"
+        generate: true
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: rancher-vsphere-csi
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    vCenter:
+      host: "vcenter"
+      port: 443
+      insecureFlag: "1"
+      clusterId: "randomize-it"
+      datacenters: "vmware-dc"
+      username: "login@vsphere.local"
+      password: "passwd"
+EOF
+```
